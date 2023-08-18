@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+import React, { useContext } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from './components/Navbar';
+import HeroSection from './components/HeroSection';
+import ContentSection from './components/ContentSection';
+import FeatureHighlight from './components/FeatureHighlight';
+import PricingSection from './components/PricingSection';
+import PhilosophySection from './components/PhilosophySection';
+import Footer from './components/Footer';
+import UserDashboard from './components/UserDashboard';
+import { AuthContext } from './context/AuthContext';
 
 function App() {
+  const { isAuthenticated } = useContext(AuthContext);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      { isAuthenticated ? (
+        <UserDashboard />
+      ) : (
+        <>
+          <HeroSection />
+          <ContentSection />
+          <FeatureHighlight />
+          <PricingSection />
+          <PhilosophySection />
+        </>
+      )}
+      <Footer />
     </div>
   );
 }
